@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mohammad Hosein Merati</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- English font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050509;
+            --bg-header: #0b0b10;
+            --border-subtle: #1b1b22;
+            --accent: #f5c445;
+            /* gold */
+            --accent-soft: #f3b933;
+            --text-main: #f4f4f5;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* LAYOUT MAIN */
+        .main {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 780px;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 26px;
+        }
+
+        .ar {
+            direction: rtl;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #ffffff;
+        }
+
+        .fa {
+            direction: rtl;
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 18px;
+            color: #e5e5e5;
+        }
+
+        .en {
+            direction: ltr;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .contact-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--accent);
+            background: transparent;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+        }
+
+        .contact-trigger:hover {
+            border-color: var(--accent);
+            background: rgba(245, 196, 69, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .contact-trigger:active {
+            transform: translateY(0);
+        }
+
+        /* DIALOG */
+        .dialog-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dialog {
+            background: #101019;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            padding: 16px 18px 14px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .dialog-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .dialog-close {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .dialog-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 6px 0;
+        }
+
+        .dialog-label {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            min-width: 76px;
+            text-align: left;
+        }
+
+        .dialog-value {
+            flex: 1;
+            text-align: left;
+            font-size: 0.8rem;
+            overflow-wrap: anywhere;
+        }
+
+        .dialog-value a {
+            color: #f9fafb;
+            text-decoration: none;
+            border-bottom: 1px dotted #4b5563;
+        }
+
+        .dialog-value a:hover {
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            border: 1px solid var(--border-subtle);
+            background: #151520;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            border-radius: 999px;
+            padding: 3px 8px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .dialog-hint {
+            margin-top: 8px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        @media (max-width: 640px) {
+            .main {
+                padding: 16px;
+            }
+
+            .container {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="main">
+        <div class="container">
+            <div class="number" id="num"></div>
+            <div class="ar" id="ar"></div>
+            <div class="fa" id="fa"></div>
+            <div class="en" id="en"></div>
+
+            <button class="contact-trigger" id="contact-trigger">
+      Click for contact &amp; links
+    </button>
+        </div>
+    </main>
+
+    <!-- DIALOG -->
+    <div class="dialog-backdrop hidden" id="dialog-backdrop">
+        <div class="dialog" role="dialog" aria-modal="true">
+            <div class="dialog-header">
+                <div class="dialog-title">Contact • Mohammad Hosein Merati</div>
+                <button class="dialog-close" id="dialog-close" aria-label="Close">✕</button>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="dialog-row">
+                <div class="dialog-label">LinkedIn</div>
+                <div class="dialog-value" id="val-linkedin">
+                    <a href="https://www.linkedin.com/in/merati22/" target="_blank">
+                        linkedin.com/in/merati22
+                    </a>
+                </div>
+                <button class="copy-btn" data-copy-target="val-linkedin">Copy</button>
+            </div>
+
+            <!-- Telegram -->
+            <div class="dialog-row">
+                <div class="dialog-label">Telegram</div>
+                <div class="dialog-value" id="val-telegram">
+                    <a href="https://t.me/merati22" target="_blank">@merati22</a>
+                </div>
+                <button class="copy-btn" data-copy-target="val-telegram">Copy</button>
+            </div>
+
+            <!-- Email -->
+            <div class="dialog-row">
+                <div class="dialog-label">Email</div>
+                <div class="dialog-value" id="val-email">
+                    <a href="mailto:merati22@gmail.com">merati22@gmail.com</a>
+                </div>
+                <button class="copy-btn" data-copy-target="val-email">Copy</button>
+            </div>
+
+            <!-- Resume -->
+            <div class="dialog-row">
+                <div class="dialog-label">Resume</div>
+                <div class="dialog-value" id="val-resume">
+                    <a href="https://cvbuilder.me/resume/en/fcaebdb9-c878-423c-882d-d8cc18f3eb68" target="_blank">
+                        Online Resume
+                    </a>
+                </div>
+                <button class="copy-btn" data-copy-target="val-resume">Copy</button>
+            </div>
+
+            <div class="dialog-hint">
+                Click the text to open, or use “Copy” to copy the value.
+            </div>
+        </div>
+    </div>
+
+    <!-- Data file with all Hikam -->
+    <script src="hikam-data.js"></script>
+
+    <script>
+        const hikam = window.HIKAM_DATA || [];
+
+  const numEl = document.getElementById("num");
+  const arEl  = document.getElementById("ar");
+  const faEl  = document.getElementById("fa");
+  const enEl  = document.getElementById("en");
+
+  function randomHikmah() {
+    if (!hikam.length) {
+      numEl.textContent = "#—";
+      arEl.textContent  = "No data loaded.";
+      faEl.textContent  = "فایلی به نام hikam-data.js پیدا نشد یا داده‌ای در آن نیست.";
+      enEl.textContent  = "Make sure hikam-data.js is next to this file and defines window.HIKAM_DATA.";
+      return;
+    }
+    const h = hikam[Math.floor(Math.random() * hikam.length)];
+    numEl.textContent = "#" + (h.number ?? "—");
+    arEl.textContent  = h.ar || "";
+    faEl.textContent  = h.fa || "";
+    enEl.textContent  = h.en || "";
+  }
+
+  randomHikmah(); // just once on load
+
+  // === DIALOG LOGIC ===
+  const contactTrigger = document.getElementById("contact-trigger");
+  const dialogBackdrop= document.getElementById("dialog-backdrop");
+  const dialogClose   = document.getElementById("dialog-close");
+
+  function openDialog() {
+    dialogBackdrop.classList.remove("hidden");
+  }
+
+  function closeDialog() {
+    dialogBackdrop.classList.add("hidden");
+  }
+
+  contactTrigger.addEventListener("click", openDialog);
+  dialogClose.addEventListener("click", closeDialog);
+  dialogBackdrop.addEventListener("click", (e) => {
+    if (e.target === dialogBackdrop) closeDialog();
+  });
+
+  // Copy buttons
+  function copyFromElementId(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let text = "";
+    const link = el.querySelector("a");
+    if (link) {
+      text = link.getAttribute("href") || link.textContent.trim();
+    } else {
+      text = el.textContent.trim();
+    }
+
+    if (!text) return;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      }).catch(() => {
+        alert("Copy failed, value:\n" + text);
+      });
+    } else {
+      alert("Copy this value:\n" + text);
+    }
+  }
+
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-copy-target");
+      if (id) copyFromElementId(id);
+    });
+  });
+    </script>
+
+</body>
+
+</html>
